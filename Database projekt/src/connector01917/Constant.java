@@ -6,11 +6,11 @@ package connector01917;
 public abstract class Constant
 {
 	public static final String
-		server					= "localhost",  // database-serveren
-		database				=  "Gruppe_25",  //"jdbcdatabase", // navnet paa din database = dit studienummer
-		username				= "root", // dit brugernavn = dit studienummer 
-		password				= ""; // dit password som du har valgt til din database
-	
+	server					= "sql11.freemysqlhosting.net",  // database-serveren
+	database				=  "sql11162519",  //"jdbcdatabase", // navnet paa din database = dit studienummer
+	username				= "sql11162519", // dit brugernavn = dit studienummer 
+	password				= "5JSFwhTFgl"; // dit password som du har valgt til din database
+
 	public static final int
-		port					= 3306;
+	port					= 3306;
 }
