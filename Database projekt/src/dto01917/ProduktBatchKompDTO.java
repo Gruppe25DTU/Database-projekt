@@ -29,6 +29,6 @@ public class ProduktBatchKompDTO
 	public int getOprId() { return oprId; }
 	public void setOprId(int oprId) { this.oprId = oprId; }
 	public String toString() { 
-		return "\n" + pbId + "\t" + rbId +"\t" + tara +"\t" + netto + "\t" + oprId ; 
+		return pbId + "\t" + rbId +"\t" + tara +"\t" + netto + "\t" + oprId ; 
 	}
 }
