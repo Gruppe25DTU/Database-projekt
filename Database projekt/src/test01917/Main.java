@@ -32,7 +32,7 @@ public class Main {
 		
 		System.out.println("Opdatering af initialer for operatoer nummer 4");
 		oprDTO.setIni("DoJu");
-		try { opr.updateOperatoer(oprDTO); }
+		try { opr.updateOperatoer(oprDTO,"000000-0000",4); }
 		catch (DALException e) { System.out.println(e.getMessage()); }
 		
 		System.out.println("Operatoer nummer 4:");
