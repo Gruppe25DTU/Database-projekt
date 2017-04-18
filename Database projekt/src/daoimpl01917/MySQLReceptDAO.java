@@ -34,12 +34,12 @@ public class MySQLReceptDAO implements ReceptDAO {
 
 	@Override
 	public List<ReceptDTO> getReceptList() throws DALException {
-		String query = "select * from recept";
+		String query = "select * from recept;";
 		List<ReceptDTO> list = new ArrayList<ReceptDTO>();
 		ResultSet rs = Connector.doQuery(query);
 		try {
 			while(rs.next()) {
-				ReceptDTO recept = new ReceptDTO(rs.getInt("recept_id"),rs.getString("recept_name"));
+				ReceptDTO recept = new ReceptDTO(rs.getInt("recept_id"),rs.getString("recept_navn"));
 				list.add(recept);
 			}
 		}

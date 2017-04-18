@@ -24,6 +24,6 @@ public class ReceptKompDTO
 	public double getTolerance() { return tolerance; }
 	public void setTolerance(double tolerance) { this.tolerance = tolerance; }
 	public String toString() { 
-		return receptId + "\t" + raavareId + "\t" + nomNetto + "\t" + tolerance; 
+		return "receptId: " + receptId + "\t raavareId: " + raavareId + "\t nomNetto: " + nomNetto + "\t tolerance: " + tolerance; 
 	}
 }

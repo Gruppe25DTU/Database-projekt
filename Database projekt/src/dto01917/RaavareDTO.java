@@ -30,6 +30,6 @@ public class RaavareDTO
     public String getLeverandoer() { return leverandoer; }
     public void setLeverandoer(String leverandoer) { this.leverandoer = leverandoer; }
     public String toString() { 
-		return raavareId + "\t" + raavareNavn +"\t" + leverandoer; 
+		return "raavareId: " + raavareId + "\t raavareNavn: " + raavareNavn +"\t levenrandoer: " + leverandoer; 
 	}
 }
