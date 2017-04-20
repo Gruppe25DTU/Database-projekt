@@ -33,7 +33,6 @@ public class Main {
 		catch (IllegalAccessException e) { e.printStackTrace(); }
 		catch (ClassNotFoundException e) { e.printStackTrace(); }
 		catch (SQLException e) { e.printStackTrace(); }
-		testList();
 		testOperatoer();
 			
 		
@@ -133,86 +132,66 @@ public class Main {
 		}
 	}
 	
-	public static void testRaavareBatch()  {
+	public static void testRaavareBatch() throws DALException  {
 		RaavareBatchDAO rb = new MySQLRaavareBatchDAO();
-
-		rb.createRaavareBatch(raavarebatch);
-		rb.getRaavareBatch(rbId);
-		rb.getRaavareBatchList();
-		rb.getRaavareBatchList(raavareId);
-		rb.updateRaavareBatch(raavarebatch);
 		
+		System.out.println("GetRaavareBatch. rbId = 1");
+		System.out.println(rb.getRaavareBatch(1));
+		
+		System.out.println("createRaavareBatch. rb_id = 8, raavare_id = 7, maengde = 2000.0");
+		RaavareBatchDTO rb1 = new RaavareBatchDTO(8, 7, 2000.0);
+		rb.createRaavareBatch(rb1);
+		
+		System.out.println("Get new raavareBatch. rb_id = 8");
+		System.out.println(rb.getRaavareBatch(8));
+		
+		System.out.println("updateRaavareBatch, maengde = 300.0");
+		rb.updateRaavareBatch(new RaavareBatchDTO(8,7,300.0));
+
+		System.out.println("Get updated RaavareBatch. rb_id = 8");
+		System.out.println(rb.getRaavareBatch(8));
+		
+		System.out.println("GetRaavareBatchList(id). id = 1");
+		System.out.println(rb.getRaavareBatchList(1));
+		
+		System.out.println("RaavareBatch List");
+		List<RaavareBatchDTO> rbList = rb.getRaavareBatchList();	
+		for(int i = 0;i<rbList.size();i++) {
+			System.out.println(rbList.get(i));
+		}
 	}
+
 	
 	public static void testRaavare() throws DALException {
 		RaavareDAO r = new MySQLRaavareDAO();
-		r.createRaavare(raavare);
-		r.getRaavare(raavareId)
-		r.getRaavareList()
-		r.updateRaavare(raavare);
 		
+		System.out.println("getRaavare. id = 1.");
+		System.out.println(r.getRaavare(1));
 		
-	}
-	
-	public static void testRecept() throws DALException {
-		ReceptDAO recept = new MySQLReceptDAO();
-		recept.createRecept(recept);
-		recept.getRecept(receptId);
-		recept.getReceptList();
-		recept.updateRecept(recept);
+		System.out.println("CreateRaavre. id = 8, navn = pizza, leverandoer = Knoor");
+		r.createRaavare(new RaavareDTO(8,"Pizza","Knoor"));
 		
+		System.out.println("get new raavare id = 8.");
+		System.out.println(r.getRaavare(8));
 		
-	}
-	
-	public static void testReceptKomp() throws DALException {
-		ReceptKompDAO rk = new MySQLReceptKompDAO();
-
-		rk.createReceptKomp(receptkomponent);
-		rk.getReceptKomp(receptId, raavareId)
-		rk.getReceptKompList()
-		rk.getReceptKompList(receptId)
+		System.out.println("Update new raavare id = 8, name = Ananas pizza.");
+		r.updateRaavare(new RaavareDTO(8,"Ananas Pizza", "Knoor"));
+		System.out.println(r.getRaavare(8));
 		
-		
-	}
-	
-	public static void testList() {
-		
-		
-		System.out.println("Following test all get \"something lists\"");
-		
-		try {
-			
-
-			System.out.println("ReceptList");
-			List<ReceptDTO> Receptlist = recept.getReceptList();
-			for(int i = 0;i<Receptlist.size();i++) {
-				System.out.println(Receptlist.get(i));
-			}
-			
-
-			//raavareBatch
-			System.out.println("RaavareBatch List");
-			List<RaavareBatchDTO> rbList = rb.getRaavareBatchList();	
-			for(int i = 0;i<rbList.size();i++) {
-				System.out.println(rbList.get(i));
-			}
-			System.out.println("Raavare list");
-			List<RaavareDTO> raavareList = r.getRaavareList();
-			for(int i = 0;i<raavareList.size();i++) {
-				System.out.println(raavareList.get(i));
-			}
-
-
-			System.out.println("Recept komp");
-			List<ReceptKompDTO> rkList = rk.getReceptKompList();
-			for(int i = 0;i<rkList.size();i++) {
-				System.out.println(rkList.get(i));
-			}
-
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println("Raavare list");
+		List<RaavareDTO> raavareList = r.getRaavareList();
+		for(int i = 0;i<raavareList.size();i++) {
+			System.out.println(raavareList.get(i));
 		}
+
+		
 	}
+	
+	
+	
+	
+			
+
+	
 	
 }
