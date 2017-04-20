@@ -6,9 +6,9 @@ package connector01917;
 public abstract class Constant
 {
 	public static final String
-	server					= "localhost",  // database-serveren
-	database				=  "project01",  //"jdbcdatabase", // navnet paa din database = dit studienummer
-	username				= "root", // dit brugernavn = dit studienummer 
+	server					= "sql11.freemysqlhosting.net",  // database-serveren
+	database				=  "sql11166112",  //"jdbcdatabase", // navnet paa din database = dit studienummer
+	username				= "sql11166112", // dit brugernavn = dit studienummer 
 	password				= ""; // dit password som du har valgt til din database
 
 	
