@@ -156,21 +156,44 @@ public class Main {
 	
 	public static void testRecept() throws DALException {
 		ReceptDAO recept = new MySQLReceptDAO();
-		recept.createRecept(recept);
-		recept.getRecept(receptId);
-		recept.getReceptList();
-		recept.updateRecept(recept);
+		ReceptDTO rDTO = new ReceptDTO(10,"Agurk");
+		
+		recept.createRecept(rDTO);
+		System.out.println("Inserting: "+rDTO);
+		rDTO = recept.getRecept(10);
+		System.out.println("Pulling out again: "+rDTO);
+		System.out.println("-------------------------------------------------------------");
+		List<ReceptDTO> rDTOList = recept.getReceptList();
+		System.out.println("Printing all receipts");
+		for(ReceptDTO dto : rDTOList)
+		{
+			System.out.println(dto);
+		}
+		recept.updateRecept(new ReceptDTO(10, "Lort"));
+		System.out.println("Updating "+rDTO);
+		rDTO = recept.getRecept(10);
+		System.out.println("Is now: "+rDTO);
 		
 		
 	}
 	
 	public static void testReceptKomp() throws DALException {
 		ReceptKompDAO rk = new MySQLReceptKompDAO();
-
-		rk.createReceptKomp(receptkomponent);
-		rk.getReceptKomp(receptId, raavareId)
-		rk.getReceptKompList()
-		rk.getReceptKompList(receptId)
+		ReceptKompDTO testKomp = new ReceptKompDTO(10,12,24,88);
+		System.out.println("Before Insertion: "+testKomp);
+		rk.createReceptKomp(testKomp);
+		testKomp = rk.getReceptKomp(10, 12);
+		System.out.println("After insertion: "+testKomp);
+		List<ReceptKompDTO> testList = rk.getReceptKompList();
+		for(ReceptKompDTO t : testList)
+		{
+			System.out.println(t);
+		}
+		testList = rk.getReceptKompList(10);
+		for(ReceptKompDTO t : testList)
+		{
+			System.out.println(t);
+		}
 		
 		
 	}
