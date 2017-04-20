@@ -32,7 +32,7 @@ public class MySQLRaavareDAO implements RaavareDAO {
 		{
 			while (rs.next()) 
 			{
-				list.add(new RaavareDTO(rs.getInt("raavare_Id"), rs.getString("raavare navn"), rs.getString("leverandoer")));
+				list.add(new RaavareDTO(rs.getInt("raavare_Id"), rs.getString("raavare_navn"), rs.getString("leverandoer")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }

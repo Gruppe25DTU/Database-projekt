@@ -19,6 +19,6 @@ public class ProduktBatchDTO
 	public void setStatus(int status) { this.status = status; }
 	public int getReceptId() { return receptId; }
 	public void setReceptId(int receptId) { this.receptId = receptId; }
-	public String toString() { return pbId + "\t" + status + "\t" + receptId; }
+	public String toString() { return "pbId: " + pbId + "\t status: " + status + "\t receptId: " + receptId; }
 }
 

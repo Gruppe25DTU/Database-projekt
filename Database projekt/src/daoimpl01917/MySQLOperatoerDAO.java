@@ -13,34 +13,42 @@ import dto01917.OperatoerDTO;
 
 public class MySQLOperatoerDAO implements OperatoerDAO {
 	public OperatoerDTO getOperatoer(int oprId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer WHERE opr_id = " + oprId);
-	    try {
-	    	if (!rs.first()) throw new DALException("Operatoeren " + oprId + " findes ikke");
-	    	return new OperatoerDTO (rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"));
-	    }
-	    catch (SQLException e) {throw new DALException(e); }
-		
+		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer_view WHERE opr_id = " + oprId);
+		try {
+			if (!rs.first()) throw new DALException("Operatoeren " + oprId + " findes ikke");
+			return new OperatoerDTO (rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"));
+		}
+		catch (SQLException e) {throw new DALException(e); }
+
 	}
-	
-	public void createOperatoer(OperatoerDTO opr) throws DALException {		
-			Connector.doUpdate(
-				"INSERT INTO operatoer(opr_id, opr_navn, ini, cpr, password) VALUES " +
-				"(" + opr.getOprId() + ", '" + opr.getOprNavn() + "', '" + opr.getIni() + "', '" + 
-				opr.getCpr() + "', '" + opr.getPassword() + "')"
-			);
-	}
-	
-	public void updateOperatoer(OperatoerDTO opr) throws DALException {
+
+	public void createOperatoer(OperatoerDTO opr) throws DALException {
+		String operatoer_info = "INSERT INTO operatoer_info(cpr, opr_navn,ini) VALUES ('%s','%s','%s');";
+		operatoer_info = String.format(operatoer_info, opr.getCpr(),opr.getOprNavn(),opr.getIni());
+		Connector.doUpdate(operatoer_info);
 		Connector.doUpdate(
-				"UPDATE operatoer SET  opr_navn = '" + opr.getOprNavn() + "', ini =  '" + opr.getIni() + 
-				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "' WHERE opr_id = " +
-				opr.getOprId()
-		);
+				"INSERT INTO operatoer(opr_id, cpr, password) VALUES " +
+						"(" + opr.getOprId() + ", '" + opr.getCpr() + "', '" + opr.getPassword() + "')"
+				);
+
+	}
+
+
+	public void updateOperatoer(OperatoerDTO opr, String cpr, int opr_id) throws DALException {
+		String operatoer_info = "UPDATE operatoer_info SET opr_navn = '%s', ini = '%s', cpr = '%s' WHERE cpr = '%s'";
+		operatoer_info = String.format(operatoer_info, opr.getOprNavn(),opr.getIni(),opr.getCpr(),cpr);
+		Connector.doUpdate(operatoer_info);
+		//
+		String operatoer = "UPDATE operatoer SET password = '%s', opr_id = '%s' WHERE opr_id = '%s'";
+		operatoer = String.format(operatoer,opr.getPassword(),opr.getOprId(),opr_id);
+		Connector.doUpdate(operatoer);
+	
 	}
 	
+
 	public List<OperatoerDTO> getOperatoerList() throws DALException {
 		List<OperatoerDTO> list = new ArrayList<OperatoerDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer");
+		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer_view");
 		try
 		{
 			while (rs.next()) 
@@ -51,7 +59,7 @@ public class MySQLOperatoerDAO implements OperatoerDAO {
 		catch (SQLException e) { throw new DALException(e); }
 		return list;
 	}
-		
-		
+
+
 }
-	
+

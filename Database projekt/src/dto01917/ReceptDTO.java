@@ -27,6 +27,6 @@ public class ReceptDTO
 	public String getReceptNavn() { return receptNavn; }
 	public void setReceptNavn(String receptNavn) { this.receptNavn = receptNavn; }
 	public String toString() { 
-		return receptId + "\t" + receptNavn; 
+		return "receptId: " + receptId + "\t receptNavn: " + receptNavn; 
 	}
 }
