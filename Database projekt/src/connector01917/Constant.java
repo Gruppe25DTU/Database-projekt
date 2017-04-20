@@ -6,6 +6,7 @@ package connector01917;
 public abstract class Constant
 {
 	public static final String
+
 	server					= "localhost",  // database-serveren
 	database				=  "databaseproject",  //"jdbcdatabase", // navnet paa din database = dit studienummer
 	username				= "root", // dit brugernavn = dit studienummer 

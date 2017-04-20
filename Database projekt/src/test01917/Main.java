@@ -168,15 +168,61 @@ public class Main {
 		System.out.println("getRaavare. id = 1.");
 		System.out.println(r.getRaavare(1));
 		
+<<<<<<< HEAD
 		System.out.println("CreateRaavre. id = 8, navn = pizza, leverandoer = Knoor");
 		r.createRaavare(new RaavareDTO(8,"Pizza","Knoor"));
+=======
+	}
+	
+	public static void testRecept() throws DALException {
+		ReceptDAO recept = new MySQLReceptDAO();
+		ReceptDTO rDTO = new ReceptDTO(10,"Agurk");
+		
+		recept.createRecept(rDTO);
+		System.out.println("Inserting: "+rDTO);
+		rDTO = recept.getRecept(10);
+		System.out.println("Pulling out again: "+rDTO);
+		System.out.println("-------------------------------------------------------------");
+		List<ReceptDTO> rDTOList = recept.getReceptList();
+		System.out.println("Printing all receipts");
+		for(ReceptDTO dto : rDTOList)
+		{
+			System.out.println(dto);
+		}
+		recept.updateRecept(new ReceptDTO(10, "Lort"));
+		System.out.println("Updating "+rDTO);
+		rDTO = recept.getRecept(10);
+		System.out.println("Is now: "+rDTO);
+>>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 		
 		System.out.println("get new raavare id = 8.");
 		System.out.println(r.getRaavare(8));
 		
+<<<<<<< HEAD
 		System.out.println("Update new raavare id = 8, name = Ananas pizza.");
 		r.updateRaavare(new RaavareDTO(8,"Ananas Pizza", "Knoor"));
 		System.out.println(r.getRaavare(8));
+=======
+	}
+	
+	public static void testReceptKomp() throws DALException {
+		ReceptKompDAO rk = new MySQLReceptKompDAO();
+		ReceptKompDTO testKomp = new ReceptKompDTO(10,12,24,88);
+		System.out.println("Before Insertion: "+testKomp);
+		rk.createReceptKomp(testKomp);
+		testKomp = rk.getReceptKomp(10, 12);
+		System.out.println("After insertion: "+testKomp);
+		List<ReceptKompDTO> testList = rk.getReceptKompList();
+		for(ReceptKompDTO t : testList)
+		{
+			System.out.println(t);
+		}
+		testList = rk.getReceptKompList(10);
+		for(ReceptKompDTO t : testList)
+		{
+			System.out.println(t);
+		}
+>>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 		
 		System.out.println("Raavare list");
 		List<RaavareDTO> raavareList = r.getRaavareList();
