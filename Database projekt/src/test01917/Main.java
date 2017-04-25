@@ -39,6 +39,7 @@ public class Main {
 			System.out.println();
 		}
 		catch(DALException e){
+			e.printStackTrace();
 		}
 		
 		try{
@@ -46,6 +47,7 @@ public class Main {
 			System.out.println();
 		}
 		catch(DALException e){
+			e.printStackTrace();
 		}
 		
 		try{
@@ -53,6 +55,7 @@ public class Main {
 			System.out.println();
 		}
 		catch(DALException e){
+			e.printStackTrace();
 		}
 		
 		try{
@@ -60,6 +63,7 @@ public class Main {
 			System.out.println();
 		}
 		catch(DALException e){
+			e.printStackTrace();
 		}
 		
 		try{
@@ -67,6 +71,7 @@ public class Main {
 			System.out.println();
 		}
 		catch(DALException e){
+			e.printStackTrace();
 		}
 		
 		try{
@@ -74,6 +79,7 @@ public class Main {
 			System.out.println();
 		}
 		catch(DALException e){
+			e.printStackTrace();
 		}
 
 	}
