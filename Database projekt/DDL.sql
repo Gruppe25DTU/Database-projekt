@@ -18,15 +18,15 @@ CREATE SCHEMA IF NOT EXISTS `databaseproject` DEFAULT CHARACTER SET latin1 ;
 USE `databaseproject` ;
 
 
-drop table `databaseproject`.`leverandoer`;
-drop table `databaseproject`.`operatoer_info`;
-drop table `databaseproject`.`operatoer`;
-drop table `databaseproject`.`recept`;
-drop table `databaseproject`.`produktbatch`;
-drop table `databaseproject`.`raavare`;
-drop table `databaseproject`.`raavarebatch`;
-drop table `databaseproject`.`produktbatchkomponent`;
-drop table `databaseproject`.`receptkomponent`;
+drop table if exists `databaseproject`.`leverandoer`;
+drop table if exists `databaseproject`.`operatoer_info`;
+drop table if exists `databaseproject`.`operatoer`;
+drop table if exists `databaseproject`.`recept`;
+drop table if exists `databaseproject`.`produktbatch`;
+drop table if exists `databaseproject`.`raavare`;
+drop table if exists `databaseproject`.`raavarebatch`;
+drop table if exists `databaseproject`.`produktbatchkomponent`;
+drop table if exists `databaseproject`.`receptkomponent`;
 -- -----------------------------------------------------
 -- Table `databaseproject`.`leverandoer`
 -- -----------------------------------------------------
