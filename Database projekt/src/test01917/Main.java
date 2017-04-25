@@ -33,13 +33,51 @@ public class Main {
 		catch (IllegalAccessException e) { e.printStackTrace(); }
 		catch (ClassNotFoundException e) { e.printStackTrace(); }
 		catch (SQLException e) { e.printStackTrace(); }
+
+		try {
+			testOperatoer();
+			System.out.println();
+		}
+		catch(DALException e){
+		}
 		
-		testOperatoer();
-
-
+		try{
+			testProduktBatch();
+			System.out.println();
+		}
+		catch(DALException e){
+		}
+		
+		try{
+			testProduktBatchKomp();
+			System.out.println();
+		}
+		catch(DALException e){
+		}
+		
+		try{
+			testRaavareBatch();
+			System.out.println();
+		}
+		catch(DALException e){
+		}
+		
+		try{
+			testRaavare();
+			System.out.println();
+		}
+		catch(DALException e){
+		}
+		
+		try{
+			testReceptKomp();
+			System.out.println();
+		}
+		catch(DALException e){
+		}
 
 	}
-	public static void testOperatoer() {
+	public static void testOperatoer() throws DALException {
 		MySQLOperatoerDAO opr = new MySQLOperatoerDAO();
 		System.out.println("GetOperatoer. Number = 3.");
 		try { System.out.println(opr.getOperatoer(3)); }
