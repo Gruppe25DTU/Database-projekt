@@ -74,7 +74,7 @@ public class MySQLReceptKompDAO implements ReceptKompDAO {
 
 	@Override
 	public void createReceptKomp(ReceptKompDTO receptkomponent) throws DALException {
-		String query = "insert into receptkomponent values('%d','%d','%d','%d')";
+		String query = "insert into receptkomponent values('%d','%d','%3$,.2f','%4$,.2f')";
 		query = String.format(query, receptkomponent.getReceptId(),receptkomponent.getRaavareId(),receptkomponent.getNomNetto(),receptkomponent.getTolerance());
 		try {
 			Connector.doUpdate(query);
@@ -93,7 +93,7 @@ public class MySQLReceptKompDAO implements ReceptKompDAO {
 			Connector.doUpdate(query);
 		}
 		catch (DALException e) {
-			throw new DALException("Kunne ikke opdatere receptkompnent med ID: " + receptkomponent.getReceptId() + " og råvare ID: " + receptkomponent.getRaavareId() );
+			throw new DALException("Kunne ikke opdatere receptkompnent med ID: " + receptkomponent.getReceptId() + " og rï¿½vare ID: " + receptkomponent.getRaavareId() );
 		}
 	}
 

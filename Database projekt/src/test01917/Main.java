@@ -33,40 +33,55 @@ public class Main {
 		catch (IllegalAccessException e) { e.printStackTrace(); }
 		catch (ClassNotFoundException e) { e.printStackTrace(); }
 		catch (SQLException e) { e.printStackTrace(); }
-		
+
 		try {
-		testOperatoer();	
+			testOperatoer();
+			System.out.println();
 		}
-		catch (DALException e) {e.printStackTrace();}
+		catch(DALException e){
+			e.printStackTrace();
+		}
 		
-		try {
+		try{
 			testProduktBatch();
+			System.out.println();
 		}
-		catch (DALException e) {e.printStackTrace();}
+		catch(DALException e){
+			e.printStackTrace();
+		}
 		
-		try {
-			testRaavareBatch();
-		}
-		catch (DALException e) {e.printStackTrace();}
-		
-		try {
-			testRaavare();
-		}
-		catch (DALException e) {e.printStackTrace();}
-		
-		try {
-			testRecept();
-		}
-		catch (DALException e) {e.printStackTrace();}
-		try {
-			testReceptKomp();
-		}
-		catch (DALException e) {e.printStackTrace();}
-		try {
+		try{
 			testProduktBatchKomp();
+			System.out.println();
 		}
-		catch (DALException e) {e.printStackTrace();}
+		catch(DALException e){
+			e.printStackTrace();
+		}
 		
+		try{
+			testRaavareBatch();
+			System.out.println();
+		}
+		catch(DALException e){
+			e.printStackTrace();
+		}
+		
+		try{
+			testRaavare();
+			System.out.println();
+		}
+		catch(DALException e){
+			e.printStackTrace();
+		}
+		
+		try{
+			testReceptKomp();
+			System.out.println();
+		}
+		catch(DALException e){
+			e.printStackTrace();
+		}
+
 	}
 	public static void testOperatoer() throws DALException {
 		MySQLOperatoerDAO opr = new MySQLOperatoerDAO();
@@ -76,32 +91,37 @@ public class Main {
 
 		System.out.println("CreateOperatoer. Navn = Don Juan, opr_id = 4.");
 		OperatoerDTO oprDTO = new OperatoerDTO(4,"Don Juan","DJ","000000-0000","iloveyou");
-		opr.createOperatoer(oprDTO); 
-		
+		try { opr.createOperatoer(oprDTO); }
+		catch (DALException e) { System.out.println(e.getMessage()); }	
+
 		System.out.println("GetOperatoer. Number = 4. (Don Juan)");
 		System.out.println("Operatoer nummer 4:");
-		System.out.println(opr.getOperatoer(4)); 
+		try { System.out.println(opr.getOperatoer(4)); }
+		catch (DALException e) { System.out.println(e.getMessage()); }
 
 		System.out.println("UpdateOperatoer. Don Juan ini = DoJu.");
 		oprDTO.setIni("DoJu");
-		opr.updateOperatoer(oprDTO,"000000-0000",4); 
-		
+		try { opr.updateOperatoer(oprDTO,"000000-0000",4); }
+		catch (DALException e) { System.out.println(e.getMessage()); }
+
 		System.out.println("GetOperatoer. Number = 4. (Don Juan)");
-		System.out.println(opr.getOperatoer(4)); 
-		
+		try { System.out.println(opr.getOperatoer(4)); }
+		catch (DALException e) { System.out.println(e.getMessage()); }
+
 		System.out.println("Get non existing operatoer.");
 		System.out.println("Operatoer nummer 5:");
-		System.out.println(opr.getOperatoer(5)); 
-		
-		
+		try { System.out.println(opr.getOperatoer(5)); }
+		catch (DALException e) { System.out.println(e.getMessage()); }		
+
 		System.out.println("OperatoerList:");
-		
+		try {
 			List<OperatoerDTO> oprList = opr.getOperatoerList();
 			for(int i = 0;i<oprList.size();i++) {
 				System.out.println(oprList.get(i));
 			}
-		
-		
+		}
+		catch (DALException e) { System.out.println(e.getMessage()); }
+
 	}
 
 	public static void testProduktBatch() throws DALException {
@@ -135,7 +155,7 @@ public class Main {
 		System.out.println("GetProduktBachKomp. pbId = 1, rbId = 1");
 		System.out.println(pbk.getProduktBatchKomp(1, 1));
 
-		System.out.println("createProduktBatchKomp. pb_id: 1, rb_id: 8, tara:	 0.5, netto: 10.05, opr_id: 2");
+		System.out.println("createProduktBatchKomp. pb_id: 1, rb_id: 8, tara: 0.5, netto: 10.05, opr_id: 2");
 		ProduktBatchKompDTO pbkDTO1 = new ProduktBatchKompDTO(1, 8, 0.5, 10.05, 2);
 		pbk.createProduktBatchKomp(pbkDTO1);
 
