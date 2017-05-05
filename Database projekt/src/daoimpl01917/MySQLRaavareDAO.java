@@ -14,10 +14,10 @@ public class MySQLRaavareDAO implements RaavareDAO {
 
 	@Override
 	public RaavareDTO getRaavare(int raavareId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM raavare WHERE opr_id = " + raavareId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM raavare WHERE raavare_id = " + raavareId);
 		try {
-			if (!rs.first()) throw new DALException("Operatoeren " + raavareId + " findes ikke");
-			return new RaavareDTO (rs.getInt("raavare_Id"), rs.getString("raavare navn"), rs.getString("leverandoer"));
+			if (!rs.first()) throw new DALException("Raavaren" + raavareId + " findes ikke");
+			return new RaavareDTO (rs.getInt("raavare_Id"), rs.getString("raavare_navn"), rs.getString("leverandoer"));
 		}
 		
 		catch (SQLException e) {throw new DALException(e); }

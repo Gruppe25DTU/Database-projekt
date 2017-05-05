@@ -33,16 +33,42 @@ public class Main {
 		catch (IllegalAccessException e) { e.printStackTrace(); }
 		catch (ClassNotFoundException e) { e.printStackTrace(); }
 		catch (SQLException e) { e.printStackTrace(); }
-<<<<<<< HEAD
-=======
 		
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
-		testOperatoer();
-
-
-
+		try {
+		testOperatoer();	
+		}
+		catch (DALException e) {e.printStackTrace();}
+		
+		try {
+			testProduktBatch();
+		}
+		catch (DALException e) {e.printStackTrace();}
+		
+		try {
+			testRaavareBatch();
+		}
+		catch (DALException e) {e.printStackTrace();}
+		
+		try {
+			testRaavare();
+		}
+		catch (DALException e) {e.printStackTrace();}
+		
+		try {
+			testRecept();
+		}
+		catch (DALException e) {e.printStackTrace();}
+		try {
+			testReceptKomp();
+		}
+		catch (DALException e) {e.printStackTrace();}
+		try {
+			testProduktBatchKomp();
+		}
+		catch (DALException e) {e.printStackTrace();}
+		
 	}
-	public static void testOperatoer() {
+	public static void testOperatoer() throws DALException {
 		MySQLOperatoerDAO opr = new MySQLOperatoerDAO();
 		System.out.println("GetOperatoer. Number = 3.");
 		try { System.out.println(opr.getOperatoer(3)); }
@@ -50,37 +76,32 @@ public class Main {
 
 		System.out.println("CreateOperatoer. Navn = Don Juan, opr_id = 4.");
 		OperatoerDTO oprDTO = new OperatoerDTO(4,"Don Juan","DJ","000000-0000","iloveyou");
-		try { opr.createOperatoer(oprDTO); }
-		catch (DALException e) { System.out.println(e.getMessage()); }	
-
+		opr.createOperatoer(oprDTO); 
+		
 		System.out.println("GetOperatoer. Number = 4. (Don Juan)");
 		System.out.println("Operatoer nummer 4:");
-		try { System.out.println(opr.getOperatoer(4)); }
-		catch (DALException e) { System.out.println(e.getMessage()); }
+		System.out.println(opr.getOperatoer(4)); 
 
 		System.out.println("UpdateOperatoer. Don Juan ini = DoJu.");
 		oprDTO.setIni("DoJu");
-		try { opr.updateOperatoer(oprDTO,"000000-0000",4); }
-		catch (DALException e) { System.out.println(e.getMessage()); }
-
+		opr.updateOperatoer(oprDTO,"000000-0000",4); 
+		
 		System.out.println("GetOperatoer. Number = 4. (Don Juan)");
-		try { System.out.println(opr.getOperatoer(4)); }
-		catch (DALException e) { System.out.println(e.getMessage()); }
-
+		System.out.println(opr.getOperatoer(4)); 
+		
 		System.out.println("Get non existing operatoer.");
 		System.out.println("Operatoer nummer 5:");
-		try { System.out.println(opr.getOperatoer(5)); }
-		catch (DALException e) { System.out.println(e.getMessage()); }		
-
+		System.out.println(opr.getOperatoer(5)); 
+		
+		
 		System.out.println("OperatoerList:");
-		try {
+		
 			List<OperatoerDTO> oprList = opr.getOperatoerList();
 			for(int i = 0;i<oprList.size();i++) {
 				System.out.println(oprList.get(i));
 			}
-		}
-		catch (DALException e) { System.out.println(e.getMessage()); }
-
+		
+		
 	}
 
 	public static void testProduktBatch() throws DALException {
@@ -114,7 +135,7 @@ public class Main {
 		System.out.println("GetProduktBachKomp. pbId = 1, rbId = 1");
 		System.out.println(pbk.getProduktBatchKomp(1, 1));
 
-		System.out.println("createProduktBatchKomp. pb_id: 1, rb_id: 8, tara: 0.5, netto: 10.05, opr_id: 2");
+		System.out.println("createProduktBatchKomp. pb_id: 1, rb_id: 8, tara:	 0.5, netto: 10.05, opr_id: 2");
 		ProduktBatchKompDTO pbkDTO1 = new ProduktBatchKompDTO(1, 8, 0.5, 10.05, 2);
 		pbk.createProduktBatchKomp(pbkDTO1);
 
@@ -135,37 +156,9 @@ public class Main {
 			System.out.println(pbkList.get(i));
 		}
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 	public static void testRaavareBatch() throws DALException  {
 		RaavareBatchDAO rb = new MySQLRaavareBatchDAO();
-<<<<<<< HEAD
-		
-		System.out.println("GetRaavareBatch. rbId = 1");
-		System.out.println(rb.getRaavareBatch(1));
-		
-		System.out.println("createRaavareBatch. rb_id = 8, raavare_id = 7, maengde = 2000.0");
-		RaavareBatchDTO rb1 = new RaavareBatchDTO(8, 7, 2000.0);
-		rb.createRaavareBatch(rb1);
-		
-		System.out.println("Get new raavareBatch. rb_id = 8");
-		System.out.println(rb.getRaavareBatch(8));
-		
-		System.out.println("updateRaavareBatch, maengde = 300.0");
-		rb.updateRaavareBatch(new RaavareBatchDTO(8,7,300.0));
-
-		System.out.println("Get updated RaavareBatch. rb_id = 8");
-		System.out.println(rb.getRaavareBatch(8));
-		
-		System.out.println("GetRaavareBatchList(id). id = 1");
-		System.out.println(rb.getRaavareBatchList(1));
-		
-		System.out.println("RaavareBatch List");
-		List<RaavareBatchDTO> rbList = rb.getRaavareBatchList();	
-=======
 
 		System.out.println("GetRaavareBatch. rbId = 1");
 		System.out.println(rb.getRaavareBatch(1));
@@ -188,28 +181,13 @@ public class Main {
 
 		System.out.println("RaavareBatch List");
 		List<RaavareBatchDTO> rbList = rb.getRaavareBatchList(); 
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 		for(int i = 0;i<rbList.size();i++) {
 			System.out.println(rbList.get(i));
 		}
 	}
 
-<<<<<<< HEAD
-	
-=======
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 	public static void testRaavare() throws DALException {
 		RaavareDAO r = new MySQLRaavareDAO();
-<<<<<<< HEAD
-		
-		System.out.println("getRaavare. id = 1.");
-		System.out.println(r.getRaavare(1));
-		
-<<<<<<< HEAD
-		System.out.println("CreateRaavre. id = 8, navn = pizza, leverandoer = Knoor");
-		r.createRaavare(new RaavareDTO(8,"Pizza","Knoor"));
-=======
-=======
 
 		System.out.println("getRaavare. id = 1.");
 		System.out.println(r.getRaavare(1));
@@ -229,7 +207,6 @@ public class Main {
 		for(int i = 0;i<raavareList.size();i++) {
 			System.out.println(raavareList.get(i));
 		}
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 	}
 
 	public static void testRecept() throws DALException {
@@ -251,21 +228,8 @@ public class Main {
 		System.out.println("Updating "+rDTO);
 		rDTO = recept.getRecept(10);
 		System.out.println("Is now: "+rDTO);
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
-		
-		System.out.println("get new raavare id = 8.");
-		System.out.println(r.getRaavare(8));
-		
-<<<<<<< HEAD
-		System.out.println("Update new raavare id = 8, name = Ananas pizza.");
-		r.updateRaavare(new RaavareDTO(8,"Ananas Pizza", "Knoor"));
-		System.out.println(r.getRaavare(8));
-=======
-=======
 
 
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 	}
 
 	public static void testReceptKomp() throws DALException {
@@ -285,33 +249,8 @@ public class Main {
 		{
 			System.out.println(t);
 		}
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
-		
-		System.out.println("Raavare list");
-		List<RaavareDTO> raavareList = r.getRaavareList();
-		for(int i = 0;i<raavareList.size();i++) {
-			System.out.println(raavareList.get(i));
-		}
-
-		
-=======
 
 
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 	}
-<<<<<<< HEAD
-	
-	
-	
-	
-			
-=======
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/Gruppe25DTU/Database-projekt
 }
