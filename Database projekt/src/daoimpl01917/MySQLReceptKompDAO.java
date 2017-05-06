@@ -2,6 +2,7 @@ package daoimpl01917;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,13 +75,21 @@ public class MySQLReceptKompDAO implements ReceptKompDAO {
 
 	@Override
 	public void createReceptKomp(ReceptKompDTO receptkomponent) throws DALException {
-		String query = "insert into receptkomponent values('%d','%d','%3$,.2f','%4$,.2f')";
-		query = String.format(query, receptkomponent.getReceptId(),receptkomponent.getRaavareId(),receptkomponent.getNomNetto(),receptkomponent.getTolerance());
+		String query = "insert into receptkomponent(recept_id, raavare_id, nom_netto, tolerance) values(%d,%d,%s,%s)";
+		DecimalFormat df = new DecimalFormat("#.0");
+		
+		String nomNetto = df.format(receptkomponent.getNomNetto());
+		nomNetto = nomNetto.replaceAll(",", ".");
+		String tol = df.format(receptkomponent.getTolerance());
+		tol = tol.replaceAll(",", ".");
+
+		
+		query = String.format(query, receptkomponent.getReceptId(),receptkomponent.getRaavareId(),nomNetto,tol);
 		try {
 			Connector.doUpdate(query);
 		}
 		catch (DALException e) {
-			throw new DALException("Kunne ikke oprette ny recept:" + receptkomponent); 
+			throw new DALException("Kunne ikke oprette ny recept: " + receptkomponent + "\n " + e); 
 		}
 
 	}
@@ -93,7 +102,7 @@ public class MySQLReceptKompDAO implements ReceptKompDAO {
 			Connector.doUpdate(query);
 		}
 		catch (DALException e) {
-			throw new DALException("Kunne ikke opdatere receptkompnent med ID: " + receptkomponent.getReceptId() + " og r�vare ID: " + receptkomponent.getRaavareId() );
+			throw new DALException("Kunne ikke opdatere receptkompnent med ID: " + receptkomponent.getReceptId() + " og raavare ID: " + receptkomponent.getRaavareId() );
 		}
 	}
 

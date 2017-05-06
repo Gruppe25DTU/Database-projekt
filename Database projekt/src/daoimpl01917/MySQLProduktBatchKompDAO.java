@@ -70,8 +70,8 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 	@Override
 	public void updateProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException {
 		Connector.doUpdate(
-				"UPDATE produktbatchkomponent SET  tara = '" + produktbatchkomponent.getTara() +  "' netto = '" + produktbatchkomponent.getNetto()
-				+ "' opr_id = '"+ produktbatchkomponent.getOprId()+ "',  WHERE pb_id = '" + produktbatchkomponent.getPbId() + " and rb_id =  '" + produktbatchkomponent.getRbId());
+				"UPDATE produktbatchkomponent SET  tara = '" + produktbatchkomponent.getTara() +  "', netto = '" + produktbatchkomponent.getNetto()
+				+ "', opr_id = "+ produktbatchkomponent.getOprId()+ " WHERE pb_id = " + produktbatchkomponent.getPbId() + " and rb_id =  " + produktbatchkomponent.getRbId());
 	}
 
 }

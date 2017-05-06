@@ -42,19 +42,11 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		try{
-			testProduktBatch();
+		try {
+			testRecept();
 			System.out.println();
 		}
-		catch(DALException e){
-			e.printStackTrace();
-		}
-		
-		try{
-			testProduktBatchKomp();
-			System.out.println();
-		}
-		catch(DALException e){
+		catch(DALException e) {
 			e.printStackTrace();
 		}
 		
@@ -65,6 +57,24 @@ public class Main {
 		catch(DALException e){
 			e.printStackTrace();
 		}
+		try{
+			testProduktBatch();
+			System.out.println();
+		}
+		catch(DALException e){
+			e.printStackTrace();
+		}
+		
+		
+		try{
+			testProduktBatchKomp();
+			System.out.println();
+		}
+		catch(DALException e){
+			e.printStackTrace();
+		}
+		
+		
 		
 		try{
 			testRaavare();
@@ -83,9 +93,15 @@ public class Main {
 		}
 
 	}
+	
 	public static void testOperatoer() throws DALException {
+		System.out.println("_________________________________________________"
+				+ "_____________________________________________________________________________________________________");
+		System.out.println("testOperatoer()");
+		System.out.println("\n");
+		
 		MySQLOperatoerDAO opr = new MySQLOperatoerDAO();
-		System.out.println("GetOperatoer. Number = 3.");
+		System.out.println("GetOperatoer. Number = 3.\n");
 		try { System.out.println(opr.getOperatoer(3)); }
 		catch (DALException e) { System.out.println(e.getMessage()); }
 
@@ -93,27 +109,28 @@ public class Main {
 		OperatoerDTO oprDTO = new OperatoerDTO(4,"Don Juan","DJ","000000-0000","iloveyou");
 		try { opr.createOperatoer(oprDTO); }
 		catch (DALException e) { System.out.println(e.getMessage()); }	
-
+		
+		System.out.println();
 		System.out.println("GetOperatoer. Number = 4. (Don Juan)");
 		System.out.println("Operatoer nummer 4:");
 		try { System.out.println(opr.getOperatoer(4)); }
 		catch (DALException e) { System.out.println(e.getMessage()); }
 
-		System.out.println("UpdateOperatoer. Don Juan ini = DoJu.");
+		System.out.println("\nUpdateOperatoer. Don Juan ini = DoJu.");
 		oprDTO.setIni("DoJu");
 		try { opr.updateOperatoer(oprDTO,"000000-0000",4); }
 		catch (DALException e) { System.out.println(e.getMessage()); }
 
-		System.out.println("GetOperatoer. Number = 4. (Don Juan)");
+		System.out.println("\nGetOperatoer. Number = 4. (Don Juan)");
 		try { System.out.println(opr.getOperatoer(4)); }
 		catch (DALException e) { System.out.println(e.getMessage()); }
 
-		System.out.println("Get non existing operatoer.");
+		System.out.println(" \nGet non existing operatoer.");
 		System.out.println("Operatoer nummer 5:");
 		try { System.out.println(opr.getOperatoer(5)); }
 		catch (DALException e) { System.out.println(e.getMessage()); }		
 
-		System.out.println("OperatoerList:");
+		System.out.println("\nOperatoerList:");
 		try {
 			List<OperatoerDTO> oprList = opr.getOperatoerList();
 			for(int i = 0;i<oprList.size();i++) {
@@ -125,6 +142,13 @@ public class Main {
 	}
 
 	public static void testProduktBatch() throws DALException {
+		System.out.println("_________________________________________________"
+				+ "_____________________________________________________________________________________________________");
+		System.out.println("testProduktBatch()");
+		System.out.println("\n");
+		
+		
+		
 		ProduktBatchDAO pb = new MySQLProduktBatchDAO();
 
 		System.out.println("GetProduktBatch. pbId = 1");
@@ -150,6 +174,12 @@ public class Main {
 	}
 
 	public static void testProduktBatchKomp() throws DALException {
+		System.out.println("_________________________________________________"
+				+ "_____________________________________________________________________________________________________");
+		System.out.println("testProduktBatchKomp()");
+		System.out.println("\n");
+		
+		
 		ProduktBatchKompDAO pbk = new MySQLProduktBatchKompDAO();
 
 		System.out.println("GetProduktBachKomp. pbId = 1, rbId = 1");
@@ -178,6 +208,12 @@ public class Main {
 	}
 
 	public static void testRaavareBatch() throws DALException  {
+		System.out.println("_________________________________________________"
+				+ "_____________________________________________________________________________________________________");
+		System.out.println("testRaavareBatch()");
+		System.out.println("\n");
+		
+		
 		RaavareBatchDAO rb = new MySQLRaavareBatchDAO();
 
 		System.out.println("GetRaavareBatch. rbId = 1");
@@ -207,6 +243,12 @@ public class Main {
 	}
 
 	public static void testRaavare() throws DALException {
+		System.out.println("_________________________________________________"
+				+ "_____________________________________________________________________________________________________");
+		System.out.println("testRaavare()");
+		System.out.println("\n");
+		
+		
 		RaavareDAO r = new MySQLRaavareDAO();
 
 		System.out.println("getRaavare. id = 1.");
@@ -230,6 +272,11 @@ public class Main {
 	}
 
 	public static void testRecept() throws DALException {
+		System.out.println("_________________________________________________"
+				+ "_____________________________________________________________________________________________________");
+		System.out.println("testRecept()");
+		System.out.println("\n");
+		
 		ReceptDAO recept = new MySQLReceptDAO();
 		ReceptDTO rDTO = new ReceptDTO(10,"Agurk");
 
@@ -253,11 +300,17 @@ public class Main {
 	}
 
 	public static void testReceptKomp() throws DALException {
+		System.out.println("_________________________________________________"
+				+ "_____________________________________________________________________________________________________");
+		System.out.println("testReceptKomp()");
+		System.out.println("\n");
+		
+		
 		ReceptKompDAO rk = new MySQLReceptKompDAO();
-		ReceptKompDTO testKomp = new ReceptKompDTO(10,12,24,88);
-		System.out.println("Before Insertion: "+testKomp);
+		ReceptKompDTO testKomp = new ReceptKompDTO(10,8,24.1,88.1);
+		System.out.println("Before Insertion: " + testKomp);
 		rk.createReceptKomp(testKomp);
-		testKomp = rk.getReceptKomp(10, 12);
+		testKomp = rk.getReceptKomp(10, 8);
 		System.out.println("After insertion: "+testKomp);
 		List<ReceptKompDTO> testList = rk.getReceptKompList();
 		for(ReceptKompDTO t : testList)

@@ -1,0 +1,236 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+-- -----------------------------------------------------d
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema databaseproject
+-- -----------------------------------------------------
+
+
+DROP TABLE IF EXISTS produktbatchkomponent;
+DROP TABLE IF EXISTS produktbatch;
+DROP TABLE IF EXISTS operatoer;
+DROP TABLE IF EXISTS receptkomponent;
+DROP TABLE IF EXISTS recept;
+DROP TABLE IF EXISTS raavarebatch;
+DROP TABLE IF EXISTS raavare;
+DROP TABLE IF EXISTS operatoer_info;
+DROP TABLE IF EXISTS leverandoer;
+-- -----------------------------------------------------
+-- Schema databaseproject
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `databaseproject` DEFAULT CHARACTER SET latin1;
+USE `databaseproject`;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`leverandoer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`leverandoer` (
+  `leverandoer_navn` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`leverandoer_navn`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`operatoer_info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`operatoer_info` (
+  `opr_navn` VARCHAR(45) NULL DEFAULT NULL,
+  `ini` VARCHAR(8) NULL DEFAULT NULL,
+  `cpr` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`cpr`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`operatoer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`operatoer` (
+  `opr_id` INT(11) NOT NULL,
+  `cpr` VARCHAR(11) NOT NULL,
+  `password` VARCHAR(40) NULL DEFAULT NULL,
+  PRIMARY KEY (`opr_id`),
+  INDEX `cpr` (`cpr` ASC),
+  CONSTRAINT `operatoer_ibfk_1`
+    FOREIGN KEY (`cpr`)
+    REFERENCES `databaseproject`.`operatoer_info` (`cpr`)
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`recept`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`recept` (
+  `recept_id` INT(11) NOT NULL,
+  `recept_navn` TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`recept_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`produktbatch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`produktbatch` (
+  `pb_id` INT(11) NOT NULL,
+  `status` INT(11) NULL DEFAULT NULL,
+  `recept_id` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`pb_id`),
+  INDEX `recept_id` (`recept_id` ASC),
+  CONSTRAINT `produktbatch_ibfk_1`
+    FOREIGN KEY (`recept_id`)
+    REFERENCES `databaseproject`.`recept` (`recept_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`raavare`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`raavare` (
+  `raavare_id` INT(11) NOT NULL,
+  `raavare_navn` TEXT NULL DEFAULT NULL,
+  `leverandoer` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`raavare_id`),
+  INDEX `leverandoer` (`leverandoer` ASC),
+  CONSTRAINT `raavare_ibfk_1`
+    FOREIGN KEY (`leverandoer`)
+    REFERENCES `databaseproject`.`leverandoer` (`leverandoer_navn`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`raavarebatch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`raavarebatch` (
+  `rb_id` INT(11) NOT NULL,
+  `raavare_id` INT(11) NULL DEFAULT NULL,
+  `maengde` DOUBLE NULL DEFAULT NULL,
+  PRIMARY KEY (`rb_id`),
+  INDEX `raavare_id` (`raavare_id` ASC),
+  CONSTRAINT `raavarebatch_ibfk_1`
+    FOREIGN KEY (`raavare_id`)
+    REFERENCES `databaseproject`.`raavare` (`raavare_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`produktbatchkomponent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`produktbatchkomponent` (
+  `pb_id` INT(11) NOT NULL DEFAULT '0',
+  `rb_id` INT(11) NOT NULL DEFAULT '0',
+  `tara` DOUBLE NULL DEFAULT NULL,
+  `netto` DOUBLE NULL DEFAULT NULL,
+  `opr_id` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`pb_id`, `rb_id`),
+  INDEX `rb_id` (`rb_id` ASC),
+  INDEX `opr_id` (`opr_id` ASC),
+  CONSTRAINT `produktbatchkomponent_ibfk_1`
+    FOREIGN KEY (`pb_id`)
+    REFERENCES `databaseproject`.`produktbatch` (`pb_id`),
+  CONSTRAINT `produktbatchkomponent_ibfk_2`
+    FOREIGN KEY (`rb_id`)
+    REFERENCES `databaseproject`.`raavarebatch` (`rb_id`),
+  CONSTRAINT `produktbatchkomponent_ibfk_3`
+    FOREIGN KEY (`opr_id`)
+    REFERENCES `databaseproject`.`operatoer` (`opr_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+-- -----------------------------------------------------
+-- Table `databaseproject`.`receptkomponent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `databaseproject`.`receptkomponent` (
+  `recept_id` INT(11) NOT NULL DEFAULT '0',
+  `raavare_id` INT(11) NOT NULL DEFAULT '0',
+  `nom_netto` DOUBLE NULL DEFAULT NULL,
+  `tolerance` DOUBLE NULL DEFAULT NULL,
+  PRIMARY KEY (`recept_id`, `raavare_id`),
+  INDEX `raavare_id` (`raavare_id` ASC),
+  CONSTRAINT `receptkomponent_ibfk_1`
+    FOREIGN KEY (`recept_id`)
+    REFERENCES `databaseproject`.`recept` (`recept_id`),
+  CONSTRAINT `receptkomponent_ibfk_2`
+    FOREIGN KEY (`raavare_id`)
+    REFERENCES `databaseproject`.`raavare` (`raavare_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+USE `databaseproject`;
+
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `databaseproject`.`operatoer_view` AS select `databaseproject`.`operatoer`.`cpr` AS `cpr`,`databaseproject`.`operatoer`.`opr_id` AS `opr_id`,`databaseproject`.`operatoer`.`password` AS `password`,`databaseproject`.`operatoer_info`.`opr_navn` AS `opr_navn`,`databaseproject`.`operatoer_info`.`ini` AS `ini` from (`databaseproject`.`operatoer` join `databaseproject`.`operatoer_info` on((`databaseproject`.`operatoer`.`cpr` = `databaseproject`.`operatoer_info`.`cpr`))) where (`databaseproject`.`operatoer`.`cpr` = `databaseproject`.`operatoer_info`.`cpr`);
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+INSERT INTO operatoer_info(cpr, opr_navn, ini) VALUES
+('070770-7007', 'Angelo A', 'AA'),
+('080880-8008','Antonella B','AB'),
+('090990-9009', 'Luigi C', 'LC');
+INSERT INTO operatoer(opr_id, cpr, password) VALUES
+(1,'070770-7007', 'lKje4fa'),
+(2,'080880-8008', 'atoJ21v'),
+(3,'090990-9009', 'jEfm5aQ');
+INSERT INTO leverandoer (leverandoer_navn) VALUES 
+('Wawelka'),
+('Knoor'),
+('Veaubais'),
+('Franz'),
+('Ost og Skinke A/S'),
+('Igloo Frostvarer');
+
+INSERT INTO raavare(raavare_id, raavare_navn, leverandoer) VALUES
+(1, 'dej', 'Wawelka'),
+(2, 'tomat', 'Knoor'),
+(3, 'tomat', 'Veaubais'),
+(4, 'tomat', 'Franz'),
+(5, 'ost', 'Ost og Skinke A/S'),
+(6, 'skinke', 'Ost og Skinke A/S'),
+(7, 'champignon', 'Igloo Frostvarer');
+INSERT INTO raavarebatch(rb_id, raavare_id, maengde) VALUES
+(1, 1, 1000),
+(2, 2, 300),
+(3, 3, 300),
+(4, 5, 100),
+(5, 5, 100), 
+(6, 6, 100),
+(7, 7, 100);
+INSERT INTO recept(recept_id, recept_navn) VALUES
+(1, 'margherita'),
+(2, 'prosciutto'),
+(3, 'capricciosa');
+INSERT INTO receptkomponent(recept_id, raavare_id, nom_netto, tolerance) VALUES
+(1, 1, 10.0, 0.1),
+(1, 2, 2.0, 0.1),
+(1, 5, 2.0, 0.1),
+
+(2, 1, 10.0, 0.1),
+(2, 3, 2.0, 0.1),  
+(2, 5, 1.5, 0.1),
+(2, 6, 1.5, 0.1),
+
+(3, 1, 10.0, 0.1),
+(3, 4, 1.5, 0.1),
+(3, 5, 1.5, 0.1),
+(3, 6, 1.0, 0.1),
+(3, 7, 1.0, 0.1);
+INSERT INTO produktbatch(pb_id, recept_id, status) VALUES
+(1, 1, 2), 
+(2, 1, 2),
+(3, 2, 2),
+(4, 3, 1),
+(5, 3, 0);
+INSERT INTO produktbatchkomponent(pb_id, rb_id, tara, netto, opr_id) VALUES
+(1, 1, 0.5, 10.05, 1),
+(1, 2, 0.5, 2.03, 1),
+(1, 4, 0.5, 1.98, 1),
+
+(2, 1, 0.5, 10.01, 2),
+(2, 2, 0.5, 1.99, 2),
+(2, 5, 0.5, 1.47, 2),
+
+(3, 1, 0.5, 10.07, 1),
+(3, 3, 0.5, 2.06, 2),
+(3, 4, 0.5, 1.55, 1),
+(3, 6, 0.5, 1.53, 2),
+
+(4, 1, 0.5, 10.02, 3),
+(4, 5, 0.5, 1.57, 3),
+(4, 6, 0.5, 1.03, 3),
+(4, 7, 0.5, 0.99, 3);
