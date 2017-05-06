@@ -291,7 +291,7 @@ public class Main {
 		{
 			System.out.println(dto);
 		}
-		recept.updateRecept(new ReceptDTO(10, "Lort"));
+		recept.updateRecept(new ReceptDTO(10, "Banan"));
 		System.out.println("Updating "+rDTO);
 		rDTO = recept.getRecept(10);
 		System.out.println("Is now: "+rDTO);
